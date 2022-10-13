@@ -2,11 +2,50 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+"""Todo quick aggregations"""
+type AggregationsType {
+  total: Int!
+  completed: Int!
+  pending: Int!
+}
+
+type Todo {
+  id: Int!
+  description: String!
+  done: Boolean!
+}
+
 type Query {
+  todos(status: Boolean): [Todo!]!
+  todo(id: Int!): Todo!
+  totalTodos: Int!
+  completedTodos: Int!
+  pendingTodos: Int!
+  aggregations: AggregationsType!
+
   """Hola Mundo es lo que retorna"""
   hello: String!
   randomNumber: Float!
 
   """From zero to agument TO ( default: 6 )"""
   randomFromZeroTo(to: Int = 6): Int!
+}
+
+type Mutation {
+  createTodo(createTodoInput: CreateTodoInput!): Todo!
+  updateTodo(updateTodoInput: UpdateTodoInput!): Todo!
+  removeTodo(id: Int!): Boolean!
+}
+
+input CreateTodoInput {
+  """Whaat needs to be done"""
+  description: String!
+}
+
+input UpdateTodoInput {
+  id: Int!
+
+  """Whats needs to be done"""
+  description: String
+  done: Boolean
 }
